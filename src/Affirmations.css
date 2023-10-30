@@ -1,0 +1,16 @@
+.Affirmations{
+    width:50vw;
+    height:50vh;
+    min-height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    background:green;
+}
+
+.Affirmations-button-container button{
+    width:20%;
+    margin: auto 2%; 
+}
