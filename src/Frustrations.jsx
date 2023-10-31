@@ -28,11 +28,13 @@ function Frustrations() {
     }
 
     function handleBurn() {
-        setFireVisible(true);
-        setTimeout(() => {
-            setFireVisible(false);
-            setFrustrations([])
-        }, 2000)
+        if (frustrations.length !== 0) {
+            setFireVisible(true);
+            setTimeout(() => {
+                setFireVisible(false);
+                setFrustrations([])
+            }, 2000)
+        }
     }
 
     return (
