@@ -19,7 +19,8 @@ function Frustrations() {
         setInputValue(() => e.target.value)
     }
 
-    function handleSave() {
+    function handleSave(e) {
+        e.preventDefault()
         if (inputValue) {
             setFrustrations(() => [...frustrations, inputValue])
             setInputValue(() => '')
@@ -40,7 +41,7 @@ function Frustrations() {
     return (
         <div className="Frustrations">
             {!fireVisible &&
-                <Form className="d-flex flex-column w-75">
+                <Form className="d-flex flex-column w-75" onSubmit={handleSave}>
                     <Form.Text
                         style={{ fontSize: "1.5em" }}
                         className="d-flex justify-content-center flex-column align-items-center"

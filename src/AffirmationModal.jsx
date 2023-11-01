@@ -16,7 +16,7 @@ function AffirmationModal({ affirmation = 'test', changeDisplayModal, show }) {
                 <Modal.Header closeButton>
                     <Modal.Title>Something positive you saved:</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style={{ maxHeight: '300px', overflowY: 'auto' }}>
                     {affirmation}
                 </Modal.Body>
                 <Modal.Footer>

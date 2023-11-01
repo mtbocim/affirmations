@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AffirmationModal from "./AffirmationModal";
+import FullAffirmationsListModal from "./FullAffirmationsListModal";
 import './Affirmations.css'
 
 //Bootstrap imports
@@ -11,6 +12,7 @@ function Affirmations() {
     const [inputValue, setInputValue] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
     const [modalAffirmation, setModalAffirmation] = useState('');
+    const [displayFullList, setDisplayFullList] = useState(false)
 
     useEffect(() => {
         localStorage.setItem('affirmations', JSON.stringify(affirmations));
@@ -20,9 +22,12 @@ function Affirmations() {
         setInputValue(e.target.value);
     }
 
-    function handleSave() {
-        setAffirmations([...affirmations, inputValue]);
-        setInputValue('');
+    function handleSave(e) {
+        e.preventDefault()
+        if (inputValue){
+            setAffirmations([...affirmations, inputValue]);
+            setInputValue('');
+        }
     }
 
     function handleShowRandom() {
@@ -34,19 +39,39 @@ function Affirmations() {
         }
     }
 
+    function handleShowAll() {
+        affirmations.length > 0 && setDisplayFullList(true)
+    }
+
     function changeDisplayModal() {
         setDisplayModal(!displayModal);
+    }
+
+    function changeFullDisplayModal() {
+        setDisplayFullList(!displayFullList);
     }
 
     return (
         <div className="Affirmations">
             {displayModal && <AffirmationModal affirmation={modalAffirmation} changeDisplayModal={changeDisplayModal} show={displayModal} />}
-            <Form className="d-flex flex-column w-75">
+            {displayFullList && <FullAffirmationsListModal affirmations={affirmations} changeDisplayModal={changeFullDisplayModal} show={displayFullList} />}
+            <Form className="d-flex flex-column w-75" onSubmit={handleSave}>
                 <Form.Text
                     style={{ fontSize: "1.5em" }}
                     className="d-flex justify-content-center"
                 >
-                    You currently have {affirmations.length} nice thing{affirmations.length !== 1 && 's'} you've said about yourself!
+                    You currently have&nbsp;
+                    <span 
+                        onClick={handleShowAll}
+                        style={{
+                            cursor:'pointer',
+                            fontWeight:'bold'
+                        }}
+                        title="Click me to see all the things!"
+                    >
+                        {affirmations.length}
+                    </span>
+                    &nbsp;nice thing{affirmations.length !== 1 && 's'} you've said about yourself!
                 </Form.Text>
                 <div className="mt-3 d-flex justify-content-center align-content-md-around">
                     <InputGroup className="mb-3 w-50">
